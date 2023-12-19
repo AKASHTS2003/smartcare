@@ -29,7 +29,7 @@ SmartCare is a Flutter-based mobile application that aims to revolutionize careg
 Clone the repository:
 
 ```bash
-git clone [https://github.com/YOUR_USERNAME/SmartCare.git](https://github.com/AKASHTS2003/smartcare.git)
+git clone https://github.com/AKASHTS2003/smartcare.git
 ```
 
 
