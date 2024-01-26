@@ -8,17 +8,17 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   // Placeholder values for the caregiver's profile data
   String name = 'Amber Roy';
-  String email = 'amberroy@example.com';
+  String email = 'roy@example.com';
   String phoneNumber = '123-456-7890';
-  String companyName = 'XYZ Care Services';
+  String address = 'ABC House, GH street, Delhi';
   String profileOverview =
-      'Amber Roy is a seasoned caregiver with a passion for providing top-notch support. Known for her empathy and professionalism, Amber excels in personalized care, health monitoring, and creating positive environments. With a wealth of experience, she is dedicated to enhancing the well-being of her clients.';
+      'Seeking a compassionate caregiver with a nursing background and a minimum of 1 year of hospital experience to provide dedicated care for my wife, Amber Roy, who is living with Alzheimer\'s disease. The ideal candidate should exhibit patience, possess medical knowledge, and communicate effectively. Flexible scheduling options available.';
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Caregiver Profile', style: TextStyle(color: Colors.white)),
+        title: Text('My Profile', style: TextStyle(color: Colors.white)),
         backgroundColor: Colors.red,
       ),
       body: ListView(
@@ -31,14 +31,14 @@ class _ProfilePageState extends State<ProfilePage> {
               children: [
                 ClipOval(
                   child: Image.asset(
-                    'asset/images/Amber-R.jpg', // Update with your image asset path
+                    'assets/images/Amber-R.jpg', // Update with your image asset path
                     width: 160,
                     height: 160,
                     fit: BoxFit.cover,
                   ),
                 ),
                 IconButton(
-                  icon: Icon(Icons.camera_alt),
+                  icon: Icon(Icons.camera_alt, color: Colors.white),
                   onPressed: () {
                     // Handle the camera icon press (for changing the photo)
                     // You can open a bottom sheet, modal, or navigate to a new page.
@@ -49,107 +49,95 @@ class _ProfilePageState extends State<ProfilePage> {
               ],
             ),
           ),
-          SizedBox(height: 8.0),
-          // Review Rating and Client Count
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              _buildShapedContainer('4.5/5'),
-              SizedBox(width: 16.0),
-              _buildShapedContainer('130+ Clients'),
-            ],
-          ),
           SizedBox(height: 16.0),
           // Caregiver's Name
           Text(
             name,
-            style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
+            style: TextStyle(
+                fontSize: 24.0,
+                fontWeight: FontWeight.bold,
+                color: Colors.black87),
           ),
           SizedBox(height: 8.0),
           // Caregiver's Email (Non-Editable)
-          Text(
-            email,
-            style: TextStyle(fontSize: 16.0, color: Colors.grey),
-          ),
+          _buildNonEditableField('Email', email, Icons.mail),
           SizedBox(height: 16.0),
           // Divider
           Divider(),
           SizedBox(height: 16.0),
-          // Profile Overview
-          _buildEditableField('Profile Overview', profileOverview,
-              isEditable: true),
+          // Profile Overview (Non-Editable)
+          _buildNonEditableField(
+              'Profile Overview', profileOverview, Icons.description),
           SizedBox(height: 16.0),
-          // Phone Number (Editable)
-          _buildEditableField('Phone Number', phoneNumber, isEditable: true),
+          // Phone Number (Non-Editable)
+          _buildNonEditableField('Phone Number', phoneNumber, Icons.phone),
           SizedBox(height: 16.0),
-          // Company Name (Editable)
-          _buildEditableField('Company Name', companyName, isEditable: true),
-          SizedBox(height: 16.0),
+          // Company Name (Non-Editable)
+          _buildNonEditableField('Address', address, Icons.location_on),
+          SizedBox(height: 32.0), // Add more space below the buttons
           // Submit Button
-          ElevatedButton(
-            onPressed: () {
-              // Handle the submit button press
-              // You can update the caregiver's information in the database or perform other actions.
-              print('Submit Button Pressed');
-            },
-            style: ElevatedButton.styleFrom(
-              primary: Colors.red, // Red background color
-              onPrimary: Colors.white, // White text color
-            ),
-            child: Text('Submit'),
-          ),
-          SizedBox(height: 32.0), // Add more space below the button
+          _buildSubmitButton(),
         ],
       ),
     );
   }
 
-  Widget _buildEditableField(String label, String value,
-      {bool isEditable = false}) {
+  Widget _buildNonEditableField(String label, String value, IconData icon) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          label,
-          style: TextStyle(fontSize: 16.0),
+        Row(
+          children: [
+            Icon(icon, color: Colors.red),
+            SizedBox(width: 8.0),
+            Text(
+              label,
+              style: TextStyle(fontSize: 16.0, color: Colors.black87),
+            ),
+            Spacer(),
+            IconButton(
+              icon: Icon(Icons.edit,
+                  color: Colors.red), // Change edit icon color to red
+              onPressed: () {
+                // Handle the edit button press
+                // You can open a dialog, bottom sheet, or navigate to an edit page.
+                // For simplicity, I'm just printing a message.
+                print('Edit $label');
+              },
+            ),
+          ],
         ),
         SizedBox(height: 8.0),
-        if (isEditable)
-          TextFormField(
-            initialValue: value,
-            maxLines: null, // Allow multiple lines for profile overview
-            decoration: InputDecoration(
-              border: OutlineInputBorder(),
-            ),
-            onChanged: (newValue) {
-              if (label == 'Phone Number') {
-                phoneNumber = newValue;
-              } else if (label == 'Company Name') {
-                companyName = newValue;
-              } else if (label == 'Profile Overview') {
-                profileOverview = newValue;
-              }
-            },
-          )
-        else
-          Text(
-            value,
-            style: TextStyle(fontSize: 16.0, color: Colors.grey),
-          ),
+        Text(
+          value,
+          style: TextStyle(fontSize: 16.0, color: Colors.grey),
+        ),
       ],
     );
   }
 
-  Widget _buildShapedContainer(String text) {
+  Widget _buildSubmitButton() {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-      decoration: BoxDecoration(
-        color: Colors.red,
-        borderRadius: BorderRadius.circular(8.0),
-      ),
-      child: Text(
-        text,
-        style: TextStyle(color: Colors.white),
+      width: double.infinity, // Make the button take the full width
+      child: ElevatedButton(
+        onPressed: () {
+          // Handle the submit button press
+          // You can update the caregiver's information in the database or perform other actions.
+          print('Submit Button Pressed');
+        },
+        style: ElevatedButton.styleFrom(
+          primary: Colors.red, // Red background color
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(12.0),
+          child: Text(
+            'Submit',
+            style: TextStyle(
+              fontSize: 18.0,
+              color: Colors.white,
+            ),
+          ),
+        ),
       ),
     );
   }

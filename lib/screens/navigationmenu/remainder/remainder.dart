@@ -13,65 +13,76 @@ class RemainderPage extends StatefulWidget {
 class _RemainderPageState extends State<RemainderPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Reminders'),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            ElevatedButton(
-              onPressed: () async {
-                final result = await Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => ViewAllReminders(widget.allReminders),
-                  ),
-                );
-                if (result != null) {
-                  widget.allReminders.removeAt(result);
-                }
-              },
-              style: ElevatedButton.styleFrom(
-                primary: Colors.orange, // Set the button color
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8.0),
-                ),
-                elevation: 2.0,
-              ),
-              child: Text(
-                'View All',
-                style: TextStyle(fontSize: 16),
-              ),
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text(
+            'Reminders',
+            style: TextStyle(
+              color: Colors.white,
             ),
-            SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) =>
-                        AddReminderPage(allReminders: widget.allReminders),
+          ),
+          backgroundColor: Theme.of(context).primaryColor,
+        ),
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              ElevatedButton(
+                onPressed: () async {
+                  final result = await Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          ViewAllReminders(widget.allReminders),
+                    ),
+                  );
+                  if (result != null) {
+                    widget.allReminders.removeAt(result);
+                  }
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.red, // Set the button color
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8.0),
                   ),
-                );
-              },
-              style: ElevatedButton.styleFrom(
-                primary: Colors.orange, // Set the button color
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8.0),
+                  elevation: 2.0,
                 ),
-                elevation: 2.0,
+                child: const Text(
+                  'View All',
+                  style: TextStyle(color: Colors.white, fontSize: 16),
+                ),
               ),
-              child: Text(
-                'Add Reminder',
-                style: TextStyle(fontSize: 16),
+              const SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          AddReminderPage(allReminders: widget.allReminders),
+                    ),
+                  );
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.red, // Set the button color
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                  elevation: 2.0,
+                ),
+                child: const Text(
+                  'Add Reminder',
+                  style: TextStyle(color: Colors.white, fontSize: 16),
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -81,19 +92,25 @@ class _RemainderPageState extends State<RemainderPage> {
 class ViewAllReminders extends StatelessWidget {
   final List<Reminder> allReminders;
 
-  ViewAllReminders(this.allReminders);
+  const ViewAllReminders(this.allReminders, {super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('All Reminders'),
+        title: const Text(
+          'All Reminders',
+          style: TextStyle(
+            color: Colors.white,
+          ),
+        ),
+        backgroundColor: Theme.of(context).primaryColor,
       ),
       body: ListView.builder(
         itemCount: allReminders.length,
         itemBuilder: (context, index) {
           return Card(
-            margin: EdgeInsets.all(8),
+            margin: const EdgeInsets.all(8),
             elevation: 2.0,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(8.0),

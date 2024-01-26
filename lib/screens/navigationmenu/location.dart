@@ -5,7 +5,13 @@ class LocationPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Location'),
+        title: const Text(
+          'Location',
+          style: TextStyle(
+            color: Colors.white,
+          ),
+        ),
+        backgroundColor: Theme.of(context).primaryColor,
       ),
       body: Center(
         child: Text('Location Screen Content'),

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 
 class ChatPage extends StatefulWidget {
+  const ChatPage({super.key});
+
   @override
+  // ignore: library_private_types_in_public_api
   _ChatPageState createState() => _ChatPageState();
 }
 
@@ -20,54 +23,72 @@ class _ChatPageState extends State<ChatPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Chat'),
-      ),
-      body: Column(
-        children: [
-          Expanded(
-            child: ListView.builder(
-              itemCount: _messages.length,
-              itemBuilder: (context, index) {
-                return ListTile(
-                  title: Text(_messages[index]),
-                );
-              },
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text(
+            'Chat',
+            style: TextStyle(
+              color: Colors.white,
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              children: [
-                Expanded(
-                  child: TextField(
-                    controller: _messageController,
-                    decoration: InputDecoration(
-                      hintText: 'Type a message...',
+          backgroundColor: Theme.of(context).primaryColor,
+        ),
+        body: Column(
+          children: [
+            Expanded(
+              child: ListView.builder(
+                itemCount: _messages.length,
+                itemBuilder: (context, index) {
+                  return ListTile(
+                    title: Text(
+                      _messages[index],
+                      style: const TextStyle(
+                        color: Colors.red, // Set text color to orange
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: TextField(
+                      controller: _messageController,
+                      decoration: const InputDecoration(
+                        hintText: 'Type a message...',
+                        focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.red),
+                        ),
+                      ),
                     ),
                   ),
-                ),
-                IconButton(
-                  icon: Icon(Icons.send),
-                  onPressed: () {
-                    String message = _messageController.text.trim();
-                    if (message.isNotEmpty) {
-                      _sendMessage(message);
-                    }
-                  },
-                ),
-              ],
+                  IconButton(
+                    icon: const Icon(Icons.send),
+                    onPressed: () {
+                      String message = _messageController.text.trim();
+                      if (message.isNotEmpty) {
+                        _sendMessage(message);
+                      }
+                    },
+                    color: Colors.red,
+                    iconSize: 30,
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
 }
 
 void main() {
-  runApp(MaterialApp(
+  runApp(const MaterialApp(
     home: ChatPage(),
   ));
 }
