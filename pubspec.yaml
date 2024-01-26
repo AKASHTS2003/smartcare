@@ -24,8 +24,20 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
-    - asset/images/splash.png
-    - asset/images/Amber-R.jpg
+    - assets/images/splash.png
+    - assets/images/Amber-R.jpg
+    - assets/images/profile_john.jpg
+    - assets/images/profile_alice.jpg
+    - assets/images/profile_robert.jpg
+    - assets/images/profile_eva.jpg
+    - assets/images/profile_daniel.jpg
+    - assets/images/rb1.jpg
+    - assets/images/rb2.jpg
+    - assets/images/rb3.jpg
+    - assets/images/rb4.jpg
+    - assets/images/rh1.jpg
+    - assets/images/rh2.jpg
+    - assets/images/rh3.jpg
 
 
 
